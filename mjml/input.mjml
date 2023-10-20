@@ -1,0 +1,44 @@
+<mjml>
+    <mj-body>
+        <mj-section>
+            <mj-column>
+                <mj-image width="100px" src="./logo.svg"></mj-image>
+
+                <mj-divider border-color="#057AFF"></mj-divider>
+
+                <mj-text
+                    font-size="20px"
+                    font-family="helvetica"
+                    >
+                    Helle {{ $user->name }}
+                    </mj-text
+                >
+
+                <mj-text
+                    font-family="helvetica"
+                    >
+                    Please click the button below to verify your email address.
+                    </mj-text
+                >
+
+
+                <mj-button href="{{ $verificationLink }}" background-color="#057AFF">
+                    Verify Email Address
+                </mj-button>
+
+                <mj-text>
+                    If you did not create an account, no further action is required.
+                </mj-text>
+                <mj-text>
+                    Regards,95dot
+                </mj-text>
+                <mj-divider border-color="#057AFF"></mj-divider>
+
+
+                <mj-text>
+                    If you're having trouble clicking the "Verify Email Address" button, copy and paste the URL below into your web browser:{{$verificationLink}}
+                </mj-text>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>
