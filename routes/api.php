@@ -37,11 +37,11 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('users', [UserController::class, 'index']);
 
 Route::middleware(['auth:sanctum', "verified"])->group(function () {
 
     // user routes
-    Route::get('users', [UserController::class, 'index']);
     Route::patch('users/profile-visibility', [UserController::class, 'toggleProfileVisibility']);
     Route::patch('users/{user}', [UserController::class, 'update']);
     Route::patch('users/contact/{user}', [UserController::class, 'updateContact']);

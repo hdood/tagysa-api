@@ -18,7 +18,11 @@ class UserController extends Controller
     public function index()
     {
         try {
-            return response()->json(new UserResource(auth()->user()), 200);
+
+            if(auth()->user()){
+                return response()->json(new UserResource(auth()->user()), 200);
+            }
+            return response()->json(["error" => "auth", "message" => "unauthenticated"],401);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }

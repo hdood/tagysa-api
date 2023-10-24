@@ -36,7 +36,7 @@ class UserResource extends JsonResource
             'designation' => $this->designation,
             'full_name' => $this->full_name,
             'email' => $this->email,
-            'contact_email' => $this->contact_email, 
+            'contact_email' => $this->contact_email,
             'bio' => $this->bio,
             'phone' => $this->phone,
             'country_code' => $this->country_code,
@@ -56,9 +56,19 @@ class UserResource extends JsonResource
             'trailLeftDays' => $this->free_trial_days_left,
             'isPremium' => $this->is_premium,
             "requests" => RequestResource::collection($requests),
-            "balance" => $this->balance, 
-            "referralCoupons" => ReferralCouponResource::collection($this->referralCoupons), 
+            'views' => $this->intWithStyle($this->visitors->count()),
+            "balance" => $this->balance,
+            "referralCoupons" => ReferralCouponResource::collection($this->referralCoupons),
+            "verified" => $request->user()->hasVerifiedEmail(),
             'cards' => CardResource::collection($this->cards),
         ];
+    }
+
+    public function intWithStyle($n)
+    {
+        if ($n < 1000) return $n;
+        $suffix = ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'];
+        $power = floor(log($n, 1000));
+        return round($n / (1000 ** $power), 1, PHP_ROUND_HALF_EVEN) . $suffix[$power];
     }
 }

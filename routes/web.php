@@ -16,13 +16,15 @@ use App\Models\User;
 |
 */
 
-Route::get('/', function () {
-    return ['Laravel' => app()->version()];
-});
-
-
+Route::view('/', "app"); 
+Route::view('/app', "app"); 
 Route::post("/stripe/webhook", WebhookController::class);
 
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
+
+Route::get('/{any}', function () {
+    return view('app');
+})->where('any', '.*');
+

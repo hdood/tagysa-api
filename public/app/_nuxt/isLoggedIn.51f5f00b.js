@@ -1,0 +1,1 @@
+import{a1 as a,D as s,a2 as o,a3 as n}from"./entry.e6451b68.js";const m=a(async(u,c)=>{let e,t;const r=s();try{return[e,t]=o(()=>r.getUser()),await e,t(),n("/admin")}catch{return!0}});export{m as default};

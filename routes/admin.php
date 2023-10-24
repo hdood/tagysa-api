@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 
-Route::redirect("/", "/admin");
+// Route::redirect("/", "/admin");
 
 Route::prefix("admin")->group(function () {
 
