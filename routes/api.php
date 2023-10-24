@@ -1,9 +1,6 @@
 <?php
 
-use App\Models\User;
 use App\Models\Order;
-use Stripe\StripeClient;
-use App\Models\ContactSaver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\ProfileResource;
@@ -41,7 +38,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', "verified"])->group(function () {
 
     // user routes
     Route::get('users', [UserController::class, 'index']);

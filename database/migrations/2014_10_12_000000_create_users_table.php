@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('visibility')->default(json_encode(['phone' => true, 'email' => true, 'address' => true, 'website' => true]));
             $table->string('email')->unique();
             $table->string('layout')->default('default');
+            $table->string("contact_email")->nullable(); 
             $table->unsignedBigInteger("facebook_id")->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

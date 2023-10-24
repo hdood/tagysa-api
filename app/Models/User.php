@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Card;
+use App\Models\Email;
 use App\Models\Coupon;
 use Stripe\StripeClient;
 use Laravel\Cashier\Billable;
@@ -34,6 +35,7 @@ class User extends Authenticatable  implements MustVerifyEmail
         'cover_image',
         'bio',
         'email',
+        'contact_email',
         'password',
         'address',
         'phone',
@@ -75,6 +77,9 @@ class User extends Authenticatable  implements MustVerifyEmail
         return $this->hasMany(Link::class);
     }
 
+    public function emails() {
+        return $this->hasMany(Email::class);
+    }
 
     public function phones()
     {

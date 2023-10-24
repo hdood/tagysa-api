@@ -25,6 +25,7 @@ class ProfileResource extends JsonResource
                 'designation' => $this->designation,
                 'full_name' => $this->full_name,
                 'email' => $visibility['email'] ?  $this->email : false,
+                'contact_email' =>  $this->contact_email ,
                 'bio' => $this->bio,
                 'phone' => $visibility['phone'] ?  $this->phone : false,
                 'country_code' => $this->country_code,
