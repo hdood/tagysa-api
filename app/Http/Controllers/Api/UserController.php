@@ -92,7 +92,7 @@ class UserController extends Controller
             'address' => 'sometimes',
             'website' => 'sometimes',
             'country_code' => 'sometimes',
-            'contact_email' => "sometimes|email|unique:users,email,{$user->id}"
+            'contact_email' => $request->contact_email ? "sometimes|email" : 'sometimes'
         ]);
 
         try {

@@ -20,6 +20,7 @@
 Homestead.json
 Homestead.yaml
 auth.json
+/config/session.php
 npm-debug.log
 yarn-error.log
 /.fleet
