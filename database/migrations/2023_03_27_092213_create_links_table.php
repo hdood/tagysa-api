@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignUuid('profile_id');
 
-            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
+            $table->foreign('profile_id')
+            ->references('id')->on('profiles')
+            ->onDelete('cascade');
+
             $table->string('name');
             $table->integer('order');
             $table->string("text")->nullable();
