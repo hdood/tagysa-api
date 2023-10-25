@@ -33,33 +33,14 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'theme' => $this->theme,
             'name' => $this->name,
-            'designation' => $this->designation,
             'full_name' => $this->full_name,
             'email' => $this->email,
-            'contact_email' => $this->contact_email,
-            'bio' => $this->bio,
-            'phone' => $this->phone,
-            'country_code' => $this->country_code,
-            'address' => $this->address,
-            'website' => $this->website,
-            'profile_visibility' => $this->profile_visibility,
             'image' => strpos($this->image, "http") !== false ?  $this->image : url('/') . $this->image,
             'cover_image' => url('/') . $this->cover_image,
-            'portfolio' => !$this->portfolio  ? "" : url('/') . Storage::url($this->portfolio),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'visibility' => json_decode($this->visibility),
-            'pivot' => $this->pivot  ? $this->pivot : null,
-            'testimonials' => PersonalTestimonialResource::collection($this->personal_testimonials),
-            'layout' => $this->layout,
-            'trial' => $this->free_trial_days_left > 0,
-            'trailLeftDays' => $this->free_trial_days_left,
-            'isPremium' => $this->is_premium,
-            "requests" => RequestResource::collection($requests),
-            'views' => $this->intWithStyle($this->visitors->count()),
-            "balance" => $this->balance,
-            "referralCoupons" => ReferralCouponResource::collection($this->referralCoupons),
             "verified" => $request->user()->hasVerifiedEmail(),
+            "views" => $this->visitors_count,
             'cards' => CardResource::collection($this->cards),
         ];
     }
@@ -72,3 +53,4 @@ class UserResource extends JsonResource
         return round($n / (1000 ** $power), 1, PHP_ROUND_HALF_EVEN) . $suffix[$power];
     }
 }
+    

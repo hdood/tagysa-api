@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("continent")->nullable();
             $table->string("city")->nullable();
             $table->string("device")->nullable();
-            $table->foreignUuid("user_id")->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid("profile_id")->references('id')->on('profiles')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -103,6 +103,18 @@ class User extends Authenticatable  implements MustVerifyEmail
         
     }
 
+    public function getVisitorsCountAttribute(){
+
+        $query = self::query();
+
+        return $query->select(["visitors.id"]) 
+        ->join("cards", "users.id", "=", "cards.user_id")
+        ->join('profiles','cards.id','=','profiles.card_id')
+        ->join("visitors", 'profiles.id', '=', 'visitors.profile_id')
+        ->count();
+           
+    }
+
     public function spaces()
     {
         return $this->hasMany(Space::class);

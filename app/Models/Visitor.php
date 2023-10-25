@@ -10,7 +10,7 @@ class Visitor extends Model
 
     protected $fillable = [
         'country',
-        'user_id',
+        'profile_id',
         'city',
         'continent',
         'device'

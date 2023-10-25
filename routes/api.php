@@ -1,12 +1,15 @@
 <?php
 
+use App\Models\Card;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Resources\ProfileResource;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SpaceController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VisitorController;
 use App\Http\Controllers\Api\LinkController;
@@ -18,9 +21,7 @@ use App\Http\Controllers\Api\UserImageController;
 use App\Http\Controllers\UserCoverImageController;
 use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\CardController;
 use App\Http\Controllers\PersonalTestimonialController;
-use App\Models\Card;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,16 +52,22 @@ Route::middleware(['auth:sanctum', "verified"])->group(function () {
     Route::post('change-password', ChangePasswordController::class)->name('update-password');
 
 
+    // Profile 
+    Route::post('profile-picture/{profile}', [ProfileController::class, 'updatePicture']);
+    Route::patch('profiles/{profile}', [ProfileController::class, 'updateBio']);
+    Route::patch('profiles/contact/{profile}', [ProfileController::class, 'updateContact']);
+
+
     // theme route
     Route::get("user-theme/{theme}", [UserController::class, "updateTheme"]);
 
 
     // link routes
-    Route::get('links', [LinkController::class, 'index']);
-    Route::post('links', [LinkController::class, 'store']);
+    Route::post("links/reorder", [LinkController::class, "reorder"]);
+    Route::get('links/{profile}', [LinkController::class, 'index']);
+    Route::post('links/{profile}', [LinkController::class, 'store']);
     Route::patch('links/{link}', [LinkController::class, 'update']);
     Route::delete('links/{link}', [LinkController::class, 'destroy']);
-    Route::post("links/reorder", [LinkController::class, "reorder"]);
 
 
     Route::post("account", DeleteAccountController::class);
@@ -98,7 +105,7 @@ Route::middleware(['auth:sanctum', "verified"])->group(function () {
     Route::post("spaces/detach/{space}/{user:name}", [SpaceController::class, "detachUser"])->withoutScopedBindings();
 
     // analytics
-    Route::get("analytics", [VisitorController::class, "show"]);
+    Route::get("analytics/{profile}", [VisitorController::class, "show"]);
 
     // checkout
     Route::post("checkout", CheckoutController::class);
@@ -130,5 +137,5 @@ Route::get("states", fn () => response()->file(public_path("states.json")));
 
 Route::get('users/search/{term}', [UserController::class, "searchByName"]);
 
-Route::get("/{card}", fn(Card $card) => $card->user_id ? new ProfileResource($card->user) : response()->json("user not found") ); 
+Route::get("/{card}", fn(Card $card) => new ProfileResource($card->profile)); 
 

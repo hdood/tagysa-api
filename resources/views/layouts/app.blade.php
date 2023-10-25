@@ -13,7 +13,7 @@
 <body style="min-height: 100vh;" class="flex bg-gray-100 min-h-screen">
         <aside class="hidden sm:flex sm:flex-col bg-base-100">
             <a href="#" class="inline-flex items-center justify-center h-20 w-20 bg-base-100 ml-2">
-                <img src="/logo_small.png" class="scale-75" alt="95dot logo" srcset="">
+                <img src="/logo.jpg" class="scale-75" alt="tagy logo" srcset="">
             </a>
             <div class="flex-grow flex flex-col justify-between text-base-content bg-base-100">
                 <nav class="flex flex-col mx-4 my-6 space-y-4">

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('links', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignUuid('profile_id')->references('id')->on('profiles')->onDelete('cascade');
             $table->string('name');
             $table->integer('order');
             $table->string("text")->nullable();

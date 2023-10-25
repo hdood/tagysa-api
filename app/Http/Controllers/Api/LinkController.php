@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LinksCollection;
 use App\Models\Link;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
 class LinkController extends Controller
@@ -12,10 +13,10 @@ class LinkController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Profile $profile)
     {
         try {
-            $links = Link::where('user_id', auth()->user()->id)->orderBy('order', 'asc')->get();
+            $links = Link::where('profile_id', $profile->id)->orderBy('order', 'asc')->get();
             return response()->json(new LinksCollection($links), 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
@@ -44,7 +45,7 @@ class LinkController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Profile $profile)
     {
         $data = $request->validate([
             'name' => 'required|max:20',
@@ -56,7 +57,7 @@ class LinkController extends Controller
 
 
         try {
-            $data['user_id'] = auth()->user()->id;
+            $data['profile_id'] = $profile->id;
             Link::create($data);
 
             return response()->json('NEW LINK CREATED', 200);

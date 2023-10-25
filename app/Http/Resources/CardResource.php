@@ -17,7 +17,8 @@ class CardResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
-            "created_at" => $this->created_at->diffForHumans()
+            "created_at" => $this->created_at->diffForHumans(),
+            'profile' => new ProfileResource($this->profile)
         ];
     }
 }

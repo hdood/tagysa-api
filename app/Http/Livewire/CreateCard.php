@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Card;
+use App\Models\Profile;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Collection;
@@ -58,12 +59,19 @@ class CreateCard extends Component
         $this->validate();
 
         $card = new Card();
+        $profile = new Profile();
 
         $card->name = $this->name;
 
         $card->user_id = $this->selectedUser;
 
         $card->save();
+
+        $profile->name = $this->name;
+
+        $profile->card_id = $card->id;
+        
+        $profile->save(); 
 
         session()->flash("info", "Card Created Successfully");
 

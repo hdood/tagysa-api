@@ -13,7 +13,7 @@ class Link extends Model
         'order',
         'url',
         'icon',
-        'user_id',
+        'profile_id',
         'text'
     ];
 

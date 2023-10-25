@@ -44,6 +44,14 @@ return [
             'throw' => false,
         ],
 
+        'profile-pictures' => [
+            'driver' => 'local',
+            'root' => public_path('profile-pictures'),
+            'url' => env('APP_URL') . '/profile-pictures',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'media' => [
             'driver' => 'local',
             'root' => public_path('media'),

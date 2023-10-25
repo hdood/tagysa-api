@@ -10,6 +10,7 @@
 /public/vendor
 /public/hot
 /public/storage
+/public/profile-pictures
 /public/backgrounds
 /storage/*.key
 /vendor
