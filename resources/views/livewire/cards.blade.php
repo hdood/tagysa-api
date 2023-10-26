@@ -32,7 +32,7 @@
                 <button>close</button>
             </form>
         </dialog>
-        <div class="overflow-x-auto bg-base-100 rounded-md p-4">
+        <div class="overflow-x-auto bg-base-200 rounded-md p-4">
             @if ($cards->count() == 0)
                 <div class="text-center mt-8">
                     Nothing found.
@@ -84,18 +84,39 @@
                                     <button class="btn btn-error"
                                         onclick="delete_card_modal_{{ str_replace('-', '_', $card->id) }}.showModal()">Delete</button>
 
-                                    <button class="btn btn-secondary"
+                                    <button class="btn btn-info"
                                         onclick="edit_card_modal_{{ str_replace('-', '_', $card->id) }}.showModal()">Edit</button>
 
+                                    <button x-data='{copied : false}'
+                                        @click="copied = true; setTimeout(() => copied = false, 2000)" class="btn"
+                                        onclick="navigator.clipboard.writeText('{{ env('FRONTEND_URL') . '/user/' . $card->id }}');">
+                                        <svg x-show="!copied" xmlns="http://www.w3.org/2000/svg" width="20"
+                                            height="20" viewBox="0 0 256 256">
+                                            <path fill="currentColor"
+                                                d="M216 28H88a12 12 0 0 0-12 12v36H40a12 12 0 0 0-12 12v128a12 12 0 0 0 12 12h128a12 12 0 0 0 12-12v-36h36a12 12 0 0 0 12-12V40a12 12 0 0 0-12-12Zm-60 176H52V100h104Zm48-48h-24V88a12 12 0 0 0-12-12h-68V52h104Z" />
+                                        </svg>
+                                        <svg x-show="copied" xmlns="http://www.w3.org/2000/svg" width="20"
+                                            height="20" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41z" />
+                                        </svg>
+                                    </button>
+
+
                                     <a href="data:image/svg;base64, {!! base64_encode(
-                                        QrCode::eyeColor(0, 249, 56, 57, 75, 216, 208)->size(200)->generate(env("FRONTEND_URL") . "/user/" .  $card->id),
-                                    ) !!}"
-                                        download="{{ $card->name }}_{{ $card->id }}.svg"
-                                        class="btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24">
+                                        QrCode::eyeColor(0, 249, 56, 57, 75, 216, 208)->size(200)->generate(env('FRONTEND_URL') . '/user/' . $card->id),
+                                    ) !!}" x-data='{copied : false}'
+                                        @click="copied = true; setTimeout(() => copied = false, 2000)"
+                                        download="{{ $card->name }}_{{ $card->id }}.svg" class="btn">
+                                        <svg x-show="!copied" xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" viewBox="0 0 24 24">
                                             <path fill="currentColor"
                                                 d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11l-5 5Zm-6 4q-.825 0-1.413-.588T4 18v-3h2v3h12v-3h2v3q0 .825-.588 1.413T18 20H6Z" />
+                                        </svg>
+                                        <svg x-show="copied" xmlns="http://www.w3.org/2000/svg" width="20"
+                                            height="20" viewBox="0 0 24 24">
+                                            <path fill="currentColor"
+                                                d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41z" />
                                         </svg>
                                     </a>
 

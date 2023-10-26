@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use Google\Client;
 use App\Models\User;
+use Stripe\StripeClient;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Google\Client;
-use Stripe\StripeClient;
+use Illuminate\Auth\Events\Registered;
 
 class RegisteredUserController extends Controller
 {
@@ -26,41 +27,40 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'full_name' => ['required', 'string', 'max:255'],
         ]);
 
         try {
 
 
-            $stripe = new StripeClient(env("STRIPE_SECRET"));
-            $customer = $stripe->customers->create([
-                'email' => $request->email,
-            ]);
+            // $stripe = new StripeClient(env("STRIPE_SECRET"));
+            // $customer = $stripe->customers->create([
+            //     'email' => $request->email,
+            // ]);
 
-            $stripeAccount = $stripe->accounts->create([
-                'type' => 'express',
-                'country' => 'FR',
-                'email' => $request->email,
-                'capabilities' => [
-                    'card_payments' => ['requested' => true],
-                    'transfers' => ['requested' => true],
-                ],
-            ]);
+            // $stripeAccount = $stripe->accounts->create([
+            //     'type' => 'express',
+            //     'country' => 'FR',
+            //     'email' => $request->email,
+            //     'capabilities' => [
+            //         'card_payments' => ['requested' => true],
+            //         'transfers' => ['requested' => true],
+            //     ],
+            // ]);
 
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'full_name' => $request->full_name,
                 'password' => Hash::make($request->password),
-                'stripe_customer_id' => $customer->id,
-                "stripe_account_id" => $stripeAccount->id
+                // 'stripe_customer_id' => $customer->id,
+                // "stripe_account_id" => $stripeAccount->id
             ]);
       
             Auth::login($user);
 
-            // event(new Registered($user));
+            (new EmailVerificationNotificationController())->store($request);
 
             return response()->json("user created successfully");
+
         } catch (\Throwable $th) {
             return response()->json($th);
         }
@@ -96,20 +96,20 @@ class RegisteredUserController extends Controller
         $existing_user = User::where('name', $name)->first();
 
 
-        $stripe = new StripeClient(env("STRIPE_SECRET"));
-        $customer = $stripe->customers->create([
-            'email' => $email,
-        ]);
+        // $stripe = new StripeClient(env("STRIPE_SECRET"));
+        // $customer = $stripe->customers->create([
+        //     'email' => $email,
+        // ]);
 
-        $stripeAccount = $stripe->accounts->create([
-            'type' => 'express',
-            'country' => 'FR',
-            'email' => $email,
-            'capabilities' => [
-                'card_payments' => ['requested' => true],
-                'transfers' => ['requested' => true],
-            ],
-        ]);
+        // $stripeAccount = $stripe->accounts->create([
+        //     'type' => 'express',
+        //     'country' => 'FR',
+        //     'email' => $email,
+        //     'capabilities' => [
+        //         'card_payments' => ['requested' => true],
+        //         'transfers' => ['requested' => true],
+        //     ],
+        // ]);
 
         $image  = $payload['picture'];
         $user = new User();
@@ -118,13 +118,15 @@ class RegisteredUserController extends Controller
         $user->email = $email;
         $user->image = $image;
         $user->password = Hash::make("hello world");
-        $user->stripe_customer_id = $customer->id;
-        $user->stripe_account_id = $stripeAccount->id;
+        $user->email_verified_at = now(); 
+        // $user->stripe_customer_id = $customer->id;
+        // $user->stripe_account_id = $stripeAccount->id;
         try {
             $user->save();
 
             Auth::login($user);
             return response()->json("successfully registered");
+
         } catch (\Throwable $th) {
             //throw $th;
             return $th;

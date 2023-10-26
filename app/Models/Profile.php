@@ -35,5 +35,11 @@ class Profile extends Model
     {
         return $this->hasMany(Visitor::class);
     }
+
+    public function urls()
+    {
+        return $this->hasMany(Url::class);
+    }
+
     use HasFactory, HasUuids;
 }

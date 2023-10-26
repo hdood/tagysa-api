@@ -10,7 +10,7 @@
                     font-size="20px"
                     font-family="helvetica"
                     >
-                    Helle {{ $user->name }}
+                    Hello {{ $user->name }}
                     </mj-text
                 >
 

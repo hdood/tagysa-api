@@ -1,3 +1,8 @@
+
+@section('title')
+    Users
+@endsection
+
 <div>
     <div class="space-y-4">
         <div>
@@ -5,7 +10,7 @@
                 Users
             </h1>
         </div>
-        <div class="overflow-x-auto bg-base-100 rounded-md p-4">
+        <div class="overflow-x-auto bg-base-200 rounded-md p-4">
             <div class="flex gap-2 items-center">
                 <input type="text" placeholder="Search By Name, Email, Id" class="input input-bordered input-primary w-full max-w-xs" wire:model='term' />
                 <select class="select select-bordered w-full max-w-xs" id="" wire:model='userType'>

@@ -1,6 +1,11 @@
+
+@section('title')
+    Dashboard
+@endsection
+
 <div class="flex gap-3">
     <div class="flex flex-col gap-2">
-        <div class="stats shadow ">
+        <div class="stats shadow bg-base-200">
             <div class="stat">
                 <div class="stat-figure text-secondary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
@@ -54,12 +59,12 @@
                 </div>
                 <div class="stat-title">Total Amount</div>
                 <div class="stat-value">
-                    {{ $totalAmount }}₹
+                    {{ $totalAmount }}$
                 </div>
                 <div class="stat-desc">{{ $lastMonth }} - {{ $today }} </div>
             </div>
         </div>
-        <div class="bg-base-100 p-2 rounded-lg shadow">
+        <div class="bg-base-200 p-2 rounded-lg shadow">
             <h1 class="text-2xl font-medium">Recent Orders</h1>
 
             @if ($orders->count() == 0)
@@ -123,7 +128,7 @@
         </div>
     </div>
 
-    <div class="bg-base-100 p-2 rounded-lg shadow w-full    ">
+    <div class="bg-base-200 p-2 rounded-lg shadow w-full    ">
         <h1 class="text-2xl font-medium">Recent Users</h1>
 
         @if ($users->count() == 0)

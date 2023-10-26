@@ -1,1 +1,0 @@
-import{an as a,J as o,ao as s,ae as n}from"./entry.91eada8e.js";const f=a(async(u,c)=>{let e,r;const t=o();try{return[e,r]=s(()=>t.getUser()),await e,r(),n("/dashboard")}catch{return!0}});export{f as default};

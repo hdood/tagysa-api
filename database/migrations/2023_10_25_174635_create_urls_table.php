@@ -12,8 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('urls', function (Blueprint $table) {
+
             $table->id();
+            $table->string("name");
+            $table->string("link"); 
+            $table->integer("order");
+            $table->foreignUuid("profile_id");
             $table->timestamps();
+
         });
     }
 

@@ -1,1 +1,0 @@
-import{a0 as o,D as i,s as c,a1 as f,a2 as n}from"./entry.6ed29bba.js";const v=o(async(u,l)=>{let e,r;const t=i(),{user:s}=c(t);console.log("verified is executing");try{if([e,r]=f(()=>t.getUser()),await e,r(),!s.value.verified)return n("/verify")}catch(a){alert(a)}});export{v as default};

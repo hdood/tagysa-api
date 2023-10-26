@@ -176,7 +176,7 @@
                                                             >
                                                                 <img
                                                                     height="auto"
-                                                                    src="{{URL::asset('/logo.svg')}}"
+                                                                    src="{{URL::asset('/light_logo.png')}}"
                                                                     style="
                                                                         border: 0;
                                                                         display: block;
@@ -392,7 +392,7 @@
                                                         color: #000000;
                                                     "
                                                 >
-                                                    Regards, 95dot
+                                                    Regards, tagy
                                                 </div>
                                             </td>
                                         </tr>

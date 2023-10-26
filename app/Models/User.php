@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Card;
 use App\Models\Email;
 use App\Models\Coupon;
-use Stripe\StripeClient;
 use Laravel\Cashier\Billable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -14,7 +13,6 @@ use MichaelRubel\Couponables\Traits\HasCoupons;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable  implements MustVerifyEmail
 {

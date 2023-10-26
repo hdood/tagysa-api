@@ -22,6 +22,7 @@ use App\Http\Controllers\UserCoverImageController;
 use App\Http\Controllers\Auth\DeleteAccountController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\PersonalTestimonialController;
+use App\Http\Controllers\UrlController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,12 +63,19 @@ Route::middleware(['auth:sanctum', "verified"])->group(function () {
     Route::get("user-theme/{theme}", [UserController::class, "updateTheme"]);
 
 
-    // link routes
+    // Social Icons routes
     Route::post("links/reorder", [LinkController::class, "reorder"]);
     Route::get('links/{profile}', [LinkController::class, 'index']);
     Route::post('links/{profile}', [LinkController::class, 'store']);
     Route::patch('links/{link}', [LinkController::class, 'update']);
     Route::delete('links/{link}', [LinkController::class, 'destroy']);
+
+    // Urls routes
+    Route::post("urls/reorder", [UrlController::class, "reorder"]);
+    Route::get('urls/{profile}', [UrlController::class, 'index']);
+    Route::post('urls/{profile}', [UrlController::class, 'store']);
+    Route::patch('urls/{url}', [UrlController::class, 'update']);
+    Route::delete('urls/{url}', [UrlController::class, 'destroy']);
 
 
     Route::post("account", DeleteAccountController::class);

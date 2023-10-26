@@ -6,7 +6,7 @@
             Orders
         </h1>
     </div>
-    <div class="overflow-x-auto bg-base-100 rounded-md p-4">
+    <div class="overflow-x-auto bg-base-200 rounded-md p-4">
 
         <div class="flex gap-2">
             <select class="select select-bordered w-full max-w-xs" wire:model='type'>

@@ -12,6 +12,16 @@ module.exports = {
 
     plugins: [require("daisyui")],
     daisyui: {
-        themes: ["winter"],
+        themes: [
+            {
+                halloween: {
+                    ...require("daisyui/src/theming/themes")[
+                        "[data-theme=halloween]"
+                    ],
+                    primary: "#F56E01",
+                    "primary-content": "white",
+                },
+            },
+        ],
     },
 };
