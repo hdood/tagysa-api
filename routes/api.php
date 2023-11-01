@@ -116,7 +116,7 @@ Route::middleware(['auth:sanctum', "verified"])->group(function () {
     Route::get("analytics/{profile}", [VisitorController::class, "show"]);
 
     // checkout
-    Route::post("checkout", CheckoutController::class);
+    Route::post("/checkout", CheckoutController::class);
     Route::post("/card/info", [CheckoutController::class, "getPrice"]);
 
     // order

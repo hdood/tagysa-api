@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->json("card");
-            $table->string("stripe_session_id");
+            $table->string("charge_id")->nullable();
             $table->string("state");
             $table->integer("price");
             $table->json("address");

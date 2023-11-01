@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Database\Factories\CardTypeFactory;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 use Stripe\Checkout\Session as StripeSession;
 
@@ -18,52 +19,96 @@ class CheckoutController extends Controller
         $user = auth()->user();
         try {
             $data = $request->validate([
-                "type" => "required",
-                "payload" => "required",
-                "address" => "required",
-                "coupon" => "sometimes"
+                // "type" => "required",
+                // "payload" => "required",
+                // "address" => "required",
+                // "coupon" => "sometimes"
             ]);
-            $card = CardTypeFactory::makeCard($data['type'], $data['payload']);
+            // $card = CardTypeFactory::makeCard($data['type'], $data['payload']);
 
-            $price = $card->getPrice();
+            $price = 12;
 
             if ($request?->coupon) {
                 $inheritedCoupon = Coupon::where("code", $request->coupon)->first()->coupon;
                 $price = $inheritedCoupon->calc($price);
             }
 
-            Stripe::setApiKey(env('STRIPE_SECRET'));
-            $checkout_session = StripeSession::create([
-                'line_items' => [[
-                    'price_data' => [
-                        'currency' => "inr",
-                        'product_data' => [
-                            'name' => 'card'
-                        ],
-                        'unit_amount' => $price * 100
-                    ],
-                    'quantity' => 1,
-                ]],
-                'mode' => 'payment',
-                'success_url' => env('FRONTEND_URL') . '/checkout-success?session_id={CHECKOUT_SESSION_ID}',
-                'cancel_url' => env('FRONTEND_URL') . '/admin',
-                "customer" => $user->stripe_customer_id
-            ]);
+            $client = new Client();
 
-            $session_id =  $checkout_session->id;
 
             $order = Order::create([
                 'user_id' => $user->id,
                 'card' => json_encode($data),
-                'price' => $card->getPrice(),
-                "stripe_session_id" => $session_id,
-                "address" => $data['address'],
+                'price' => 12,
+                "address" => "this is a test address",
                 "coupon_code" => $request->coupon
             ]);
 
-            return response()->json(["checkout_url" => $checkout_session->url]);
+            $data = json_encode([
+                'amount' => 1,
+                'currency' => 'KWD',
+                'customer_initiated' => true,
+                'threeDSecure' => true,
+                'save_card' => false,
+                'description' => 'Test Order',
+                'receipt' => [
+                    'email' => true,
+                    'sms' => true
+                ],
+                'customer' => [
+                    'first_name' => auth()->user()->name,
+                    'email' => auth()->user()->email,
+                ],
+                'source' => [
+                    'id' => 'src_all'
+                ],
+                'redirect' => [
+                    'url' => 'http://localhost:3000/products'
+                ]
+            ]);
+
+
+            // $response = $client->request('POST', 'https://api.tap.company/v2/charges', [
+            //     'body' => $data,
+            //     'headers' => [
+            //         'Authorization' => 'Bearer ' . env("TAP_SECRET_KEY"),
+            //         'accept' => 'application/json',
+            //         'content-type' => 'application/json',
+            //     ],
+            // ]);
+
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://api.tap.company/v2/charges",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => $data,
+                CURLOPT_HTTPHEADER => [
+                    "Authorization: Bearer sk_test_XKokBfNWv6FIYuTMg5sLPjhJ",
+                    "accept: application/json",
+                    "content-type: application/json"
+                ],
+            ]);
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                return "cURL Error #:" . $err;
+            } else {
+                return $response;
+            }
+
         } catch (\Throwable $th) {
-            return $th;
+            return response()->json($th);
         }
     }
 
