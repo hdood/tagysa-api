@@ -32,7 +32,8 @@ class ProfileResource extends JsonResource
             'updated_at' => $this->updated_at,
             "views" => $this->visitors()->count(),
             'links' => new LinksCollection($this->links()->orderBy('order', 'asc')->get()),
-            'urls' => $this->urls
+            'urls' => $this->urls,
+            'card' => $this->card
         ];
     }
 

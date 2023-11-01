@@ -1,1 +1,0 @@
-import{am as a,J as s,an as o,ad as n}from"./entry.0dead6c9.js";const m=a(async(u,d)=>{let e,r;const t=s();try{return[e,r]=o(()=>t.getUser()),await e,r(),n("/dashboard")}catch{return!0}});export{m as default};
