@@ -12,7 +12,7 @@ class Cards extends Component
     use WithPagination;
     public function render()
     {
-        return view('livewire.cards', ['cards' => Card::paginate(10)])->extends("layouts.app");
+        return view('livewire.cards', ['cards' => Card::whereNull('user_id')->orWhere('user_id', '')->paginate(10)])->extends("layouts.app");
     }
 
 

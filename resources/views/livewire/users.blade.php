@@ -12,34 +12,22 @@
         </div>
         <div class="overflow-x-auto bg-base-200 rounded-md p-4">
             <div class="flex gap-2 items-center">
-                <input type="text" placeholder="Search By Name, Email, Id" class="input input-bordered input-primary w-full max-w-xs" wire:model='term' />
-                <select class="select select-bordered w-full max-w-xs" id="" wire:model='userType'>
-                    <option value="">Both</option>
-                    <option value="premium">Premium</option>
-                    <option value="basic">Basic</option>
-                </select>
-                <div class="collapse   collapse-sm">
-                    <input type="checkbox" /> 
-                    <div class="collapse-title ">
-                        <button class="btn btn-primary">More filters</button>
-                    </div>
-                    <div class="collapse-content "> 
+                <div>
+                    <span>Search</span>
+                    <input type="text" placeholder="Search By Name, Email, Id" class="input input-bordered input-primary w-full max-w-xs" wire:model='term' />
+                </div>
 
-                        <div>
-                            <span class="font-medium">Creation Date</span>
-                            <div class="flex gap-2 mt-2">
-                                <div>
-                                    <span>From</span>
-                                    <input type="date" class="input input-bordered input-primary w-full max-w-xs" id="" wire:model='from'>
-                                </div>
-                                <div>
-                                    <span>To</span>
-                                    <input type="date" class="input input-bordered input-primary w-full max-w-xs" id="" wire:model='to'>
-                                </div>
-                            </div>
-                        </div>
+                <div class="flex gap-2 mt-2">
+                    <div>
+                        <span>From</span>
+                        <input type="date" class="input input-bordered input-primary w-full max-w-xs" id="" wire:model='from'>
+                    </div>
+                    <div>
+                        <span>To</span>
+                        <input type="date" class="input input-bordered input-primary w-full max-w-xs" id="" wire:model='to'>
                     </div>
                 </div>
+                
             </div>
             @if ($users->count() == 0)
 
