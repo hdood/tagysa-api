@@ -77,7 +77,7 @@ Route::middleware(['auth:sanctum', "verified"])->group(function () {
     Route::patch('urls/{url}', [UrlController::class, 'update']);
     Route::delete('urls/{url}', [UrlController::class, 'destroy']);
 
-
+    // Delete Account
     Route::post("account", DeleteAccountController::class);
 
     // media routes
@@ -124,12 +124,13 @@ Route::middleware(['auth:sanctum', "verified"])->group(function () {
     Route::post("orders/cancel/{order}", [OrderController::class, "cancel"]);
     Route::post("orders/received/{order}", [OrderController::class, "confirmReceiving"]);
 
-
     // validate stripe session
     Route::get("stripe/session/{order:stripe_session_id}", fn (Order $order) => response()->json("valid session"));
 
+    // Cards
     Route::post("/cards/check", [CardController::class, "check"]);
     Route::post("/cards/link", [CardController::class, "link"]);
+    Route::put('/cards/{card}', [CardController::class, "update"]); 
 });
 
 

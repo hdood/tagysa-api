@@ -27,7 +27,7 @@ class CardController extends Controller
     function link(Request $request) {
         $request->validate([
             "id" => "required",
-            'name' => "required|min:6",
+            'name' => "required",
         ]);
 
         $card = Card::find($request->id);
@@ -41,4 +41,18 @@ class CardController extends Controller
 
         return new UserResource(Auth::guard('web')->user());
     }
+
+    function update(Card $card, Request $request){
+
+        $request->validate([
+            'name' => 'required'
+        ]); 
+
+        $card->name = $request->name; 
+
+        $card->save(); 
+
+        return response()->json('Card Updated Succussfully');
+    }
+    
 }

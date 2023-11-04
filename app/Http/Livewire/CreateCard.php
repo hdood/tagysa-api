@@ -19,7 +19,7 @@ class CreateCard extends Component
     function rules()
     {
         return [
-            "name" => "required|min:5|unique:cards,name"
+            "name" => "required"
         ];
     }
 

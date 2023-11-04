@@ -88,7 +88,7 @@
             <div class="bg-base-200 p-5 rounded">
                 <h1 class="text-xl font-medium my-4">Cards</h1>
                 <div class="flex gap-3 flex-col">
-                    @foreach ($this->user->cards as $card)
+                    @forelse ($this->user->cards as $card)
                         <div
                             class="bg-primary  p-4 rounded text-primary-content flex items-center justify-between gap-2  cursor-pointer w-full">
 
@@ -109,8 +109,13 @@
 									</a>
 								</div>
                         </div>
+                    @empty 
                         
-                    @endforeach
+                    <div class="my-4 text-center">
+                        This user does not have any linked cards
+                    </div>
+                        
+                    @endforelse
                 </div>
             </div>
             <div class="p-4 flex justify-end rounded bg-base-200">
