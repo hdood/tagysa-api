@@ -42,6 +42,21 @@ class CardController extends Controller
         return new UserResource(Auth::guard('web')->user());
     }
 
+    function unlink(Request $request) {
+        $request->validate([
+            "id" => "required",
+        ]);
+
+        $card = Card::find($request->id);
+
+        if(!$card) return response()->json(["error" => true, "message" => "card is not registered"]);
+
+        $card->user_id = null;
+
+        $card->save();
+        return new UserResource(Auth::guard('web')->user());
+    }
+
     function update(Card $card, Request $request){
 
         $request->validate([

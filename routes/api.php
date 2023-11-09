@@ -130,7 +130,9 @@ Route::middleware(['auth:sanctum', "verified"])->group(function () {
     // Cards
     Route::post("/cards/check", [CardController::class, "check"]);
     Route::post("/cards/link", [CardController::class, "link"]);
+    Route::post("/cards/unlink", [CardController::class, "unlink"]);
     Route::put('/cards/{card}', [CardController::class, "update"]); 
+    
 });
 
 
