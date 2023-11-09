@@ -24,7 +24,7 @@ class AuthenticatedSessionController extends Controller
             "password" => "required",
         ]);
 
-        if (!Auth::guard("admins")->attempt($data)) {
+        if (!Auth::guard("admins")->attempt($data, true)) {
             return redirect(route("admin.login-form"))->with('error', "these credentials does not match our records");
         }
         $request->session()->regenerate();
