@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
             if (!$user) {
                 return response()->json(["error" => "user not signed up"], 422);
             }
-            Auth::guard('web')->login($user);
+            Auth::guard('web')->login($user, true);
             $request->session()->regenerate();
             return response()->json(["successfully logged in"], 200);
         }
