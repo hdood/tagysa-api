@@ -59,9 +59,8 @@ class UserController extends Controller
         $data = $request->validate([
 
             'name' => ['required', 'max:25', "unique:users,name,{$user->id}"],
-            'bio' => 'sometimes|max:300',
-            'designation' => 'sometimes',
-            'full_name' => 'sometimes'
+            'phone' => 'sometimes|max:10',
+            'country_code' => 'sometimes',
         ]);
         try {
             $user->update($data);

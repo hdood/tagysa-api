@@ -27,6 +27,8 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone' => ['required', 'max:10'],
+            'country_code' => ['required']
         ]);
 
         try {
@@ -51,6 +53,8 @@ class RegisteredUserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
+                'phone' => $request->phone, 
+                'country_code' => $request->country_code
                 // 'stripe_customer_id' => $customer->id,
                 // "stripe_account_id" => $stripeAccount->id
             ]);

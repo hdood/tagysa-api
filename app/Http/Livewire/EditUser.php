@@ -14,6 +14,9 @@ class EditUser extends Component
     protected $rules = [
         "user.name" => "required",
         "user.email" => "required",
+        "user.country_code" => "required_with:user.phone",
+        "user.phone" => "required_with:user.country_code",
+
     ];
 
     public function render()

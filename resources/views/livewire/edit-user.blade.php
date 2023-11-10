@@ -81,6 +81,29 @@
                     </div>
                 </div>
 
+                <div class="flex gap-3">
+                    <div class="form-control w-full max-w-xs">
+                        <label class="label">
+                            <span class="label-text">Name</span>
+                        </label>
+                        <div class="join">
+                            <x-country-code></x-country-code>
+                            <input type="text" place holder="Type here"
+                                class="input input-bordered  w-full  join-item" wire:model='user.phone' />
+                        </div>
+                        @error('user.phone')
+                            <label class="label text-red-500 italic text-sm">
+                                <span class="">{{ $message }}</span>
+                            </label>
+                        @enderror
+                        @error('user.country_code')
+                            <label class="label text-red-500 italic text-sm">
+                                <span class="">{{ $message }}</span>
+                            </label>
+                        @enderror
+                    </div>
+                </div>
+
             </div>
 
             <div class="bg-base-200 p-5 rounded">

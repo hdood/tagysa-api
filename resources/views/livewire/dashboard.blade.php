@@ -140,7 +140,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Type</th>
+                    <th>Phone</th>
                 </tr>
             </thead>
             <tbody>
@@ -164,7 +164,12 @@
                             </div>
                         </td>
                         <td>
-                            {{ $user->is_premium ? 'premium' : 'basic' }}
+                            @if ($user->phone)
+                                
+                            +{{ $user->country_code}} {{$user->phone}}
+                            @else  
+                                No phone
+                            @endif
                         </td>
                     </tr>
                 @endforeach

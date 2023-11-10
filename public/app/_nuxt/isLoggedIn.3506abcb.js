@@ -1,0 +1,1 @@
+import{am as a,G as s,an as o,ad as n}from"./entry.65f15cac.js";const m=a(async(u,d)=>{let e,r;const t=s();try{return[e,r]=o(()=>t.getUser()),await e,r(),n("/dashboard")}catch{return!0}});export{m as default};
